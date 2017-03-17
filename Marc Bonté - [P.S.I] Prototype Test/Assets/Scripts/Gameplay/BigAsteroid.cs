@@ -16,13 +16,13 @@ public class BigAsteroid : Asteroid
         EntityParameters.accelerationScalar *= 1 - (Random.Range(0f, m_AccelerationMultiplier));
     }
 
-    protected override void OnCollisionWithBullet()
+    protected override void OnCollisionWithBullet(Vector3 direction)
     {
-        base.OnCollisionWithBullet();
+        base.OnCollisionWithBullet(direction);
 
         for (int i = 0; i < 2; i++)
         {
-            GameManagement.Instance.SpawnAsteroid(AsteroidType.small, transform.position);
+            GameManagement.Instance.SpawnAsteroid(AsteroidType.small, transform.position, direction + ExtensionMethods.RandomVector());
         }
 
         Destroy(gameObject);

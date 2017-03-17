@@ -22,8 +22,8 @@ public class Asteroid : Entity
 
         if (bullet)
         {
+            OnCollisionWithBullet(bullet.EntityRigidbody.velocity.normalized);
             Destroy(bullet.gameObject);
-            OnCollisionWithBullet();
 
             GameManagement.Instance.RemoveAsteroidFromList(this);
         }
@@ -34,7 +34,7 @@ public class Asteroid : Entity
         // Use in child
     }
 
-    protected virtual void OnCollisionWithBullet()
+    protected virtual void OnCollisionWithBullet(Vector3 direction)
     {
         // Use in child
     }

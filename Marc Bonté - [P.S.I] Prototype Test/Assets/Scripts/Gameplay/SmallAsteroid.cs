@@ -15,8 +15,10 @@ public class SmallAsteroid : Asteroid
         EntityParameters.accelerationScalar *= 1 + (Random.Range(0f, m_AccelerationMultiplier));
     }
 
-    protected override void OnCollisionWithBullet()
+    protected override void OnCollisionWithBullet(Vector3 direction)
     {
+        base.OnCollisionWithBullet(direction);
+
         Destroy(gameObject);
     }
 }

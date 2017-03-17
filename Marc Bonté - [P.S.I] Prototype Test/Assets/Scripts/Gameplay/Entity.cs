@@ -16,8 +16,10 @@ public class Entity : MonoBehaviour
 
     private const float BORDER_MARGIN = 0.5f;
 
-    protected Rigidbody m_EntityRigidbody;
     protected Vector3 m_Acceleration;
+    protected Rigidbody m_EntityRigidbody;
+    public Rigidbody EntityRigidbody { get { return m_EntityRigidbody; } }
+    
 
     protected virtual void Awake()
     {
@@ -79,7 +81,7 @@ public class Entity : MonoBehaviour
     {
         if (Application.isPlaying)
         {
-            Gizmos.DrawRay(transform.position, m_EntityRigidbody.velocity.normalized);
+            Gizmos.DrawRay(transform.position, m_EntityRigidbody.velocity);
         }
     }
 }
