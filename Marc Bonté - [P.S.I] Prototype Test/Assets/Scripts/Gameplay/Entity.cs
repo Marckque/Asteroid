@@ -11,8 +11,8 @@ public class EntityParameters
 public class Entity : MonoBehaviour
 {
     [SerializeField]
-    private EntityParameters m_Parameters = new EntityParameters();
-    public EntityParameters Parameters { get { return m_Parameters; } }
+    private EntityParameters m_EntityParameters = new EntityParameters();
+    public EntityParameters EntityParameters { get { return m_EntityParameters; } }
 
     private const float BORDER_MARGIN = 0.5f;
 
@@ -64,13 +64,13 @@ public class Entity : MonoBehaviour
 
     public void SetAcceleration(Vector3 force)
     {
-        m_Acceleration += force * m_Parameters.accelerationScalar;
+        m_Acceleration += force * m_EntityParameters.accelerationScalar;
     }
 
     public void ApplyForces()
     {
         m_EntityRigidbody.AddForce(transform.TransformDirection(m_Acceleration));
-        m_EntityRigidbody.velocity = Vector3.ClampMagnitude(m_EntityRigidbody.velocity, m_Parameters.maxVelocityMagnitude);
+        m_EntityRigidbody.velocity = Vector3.ClampMagnitude(m_EntityRigidbody.velocity, m_EntityParameters.maxVelocityMagnitude);
 
         m_Acceleration = Vector3.zero;
     }
@@ -79,7 +79,7 @@ public class Entity : MonoBehaviour
     {
         if (Application.isPlaying)
         {
-            Gizmos.DrawRay(transform.position, m_EntityRigidbody.velocity.normalized * 3f);
+            Gizmos.DrawRay(transform.position, m_EntityRigidbody.velocity.normalized);
         }
     }
 }

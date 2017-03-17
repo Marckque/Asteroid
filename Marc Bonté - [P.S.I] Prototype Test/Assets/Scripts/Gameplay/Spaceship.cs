@@ -67,7 +67,7 @@ public class Spaceship : Entity
         {
             Bullet bullet = Instantiate(m_Bullet, transform.position + (transform.forward * 3f), Quaternion.identity);
 
-            bullet.SetAcceleration(transform.forward * bullet.Parameters.accelerationScalar);
+            bullet.SetAcceleration(transform.forward * bullet.EntityParameters.accelerationScalar);
             bullet.ApplyForces();
         }
     }
