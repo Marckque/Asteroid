@@ -55,14 +55,14 @@ public class GameManagement : MonoBehaviour
         {
             if (m_Asteroids.Count < m_GameParameters.maximumAsteroids)
             {
-                SpawnAsteroid(AsteroidType.big);
+                SpawnAsteroid(AsteroidType.big, Vector3.zero);
             }
 
             yield return new WaitForSeconds(m_GameParameters.delayBetweenSpawn);
         }
     }
 
-    public void SpawnAsteroid(AsteroidType type)
+    public void SpawnAsteroid(AsteroidType type, Vector3 spawnPosition)
     {
         Asteroid asteroidToSpawn = null;
 
@@ -73,16 +73,21 @@ public class GameManagement : MonoBehaviour
                 break;
             case AsteroidType.big:
                 asteroidToSpawn = m_GameParameters.bigAsteroid;
+                m_NumberOfSpawnedAsteroids++;
                 break;
             default:
                 break;
         }
 
-        Asteroid asteroid = Instantiate(asteroidToSpawn, transform.position, Quaternion.identity);
+        Asteroid asteroid = Instantiate(asteroidToSpawn, spawnPosition, Quaternion.identity);
         asteroid.SetAcceleration(ExtensionMethods.RandomVector() * asteroid.EntityParameters.accelerationScalar);
         asteroid.ApplyForces();
 
         m_Asteroids.Add(asteroid);
-        m_NumberOfSpawnedAsteroids++;
+    }
+
+    public void RemoveAsteroidFromList(Asteroid asteroidToRemove)
+    {
+        m_Asteroids.Remove(asteroidToRemove);
     }
 }

@@ -22,7 +22,7 @@ public class BigAsteroid : Asteroid
 
         for (int i = 0; i < 2; i++)
         {
-            GameManagement.Instance.SpawnAsteroid(AsteroidType.small);
+            GameManagement.Instance.SpawnAsteroid(AsteroidType.small, transform.position);
         }
 
         Destroy(gameObject);

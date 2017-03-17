@@ -24,6 +24,8 @@ public class Asteroid : Entity
         {
             Destroy(bullet.gameObject);
             OnCollisionWithBullet();
+
+            GameManagement.Instance.RemoveAsteroidFromList(this);
         }
     }
 
