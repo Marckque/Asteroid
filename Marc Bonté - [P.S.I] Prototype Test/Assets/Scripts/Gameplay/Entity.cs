@@ -1,12 +1,25 @@
 ﻿using UnityEngine;
 
+[System.Serializable]
+public class EntityParameters
+{
+    public float accelerationScalar = 1f;
+    public float maxVelocityMagnitude = 1f;
+}
+
 [RequireComponent(typeof(Rigidbody))]
 public class Entity : MonoBehaviour
 {
-    private const float BORDER_MARGIN = 0.5f;
-    protected Rigidbody m_EntityRigidbody;
+    [SerializeField]
+    private EntityParameters m_Parameters = new EntityParameters();
+    public EntityParameters Parameters { get { return m_Parameters; } }
 
-    protected void Awake()
+    private const float BORDER_MARGIN = 0.5f;
+
+    protected Rigidbody m_EntityRigidbody;
+    protected Vector3 m_Acceleration;
+
+    protected virtual void Awake()
     {
         InitialiseRigidbody();
     }
@@ -20,6 +33,10 @@ public class Entity : MonoBehaviour
     protected virtual void Update()
     {
         ConstrainPositionToCamera();
+    }
+
+    protected virtual void FixedUpdate()
+    {
     }
 
     private void ConstrainPositionToCamera()
@@ -42,6 +59,27 @@ public class Entity : MonoBehaviour
         else if (transform.position.z > Camera.main.orthographicSize)
         {
             transform.position = new Vector3(transform.position.x, 0f, -Camera.main.orthographicSize + BORDER_MARGIN);
+        }
+    }
+
+    public void SetAcceleration(Vector3 force)
+    {
+        m_Acceleration += force * m_Parameters.accelerationScalar;
+    }
+
+    public void ApplyForces()
+    {
+        m_EntityRigidbody.AddForce(transform.TransformDirection(m_Acceleration));
+        m_EntityRigidbody.velocity = Vector3.ClampMagnitude(m_EntityRigidbody.velocity, m_Parameters.maxVelocityMagnitude);
+
+        m_Acceleration = Vector3.zero;
+    }
+
+    protected void OnDrawGizmos()
+    {
+        if (Application.isPlaying)
+        {
+            Gizmos.DrawRay(transform.position, m_EntityRigidbody.velocity.normalized * 3f);
         }
     }
 }
