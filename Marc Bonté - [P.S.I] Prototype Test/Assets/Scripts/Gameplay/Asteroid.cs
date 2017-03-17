@@ -11,6 +11,8 @@ public class Asteroid : Entity
 {
     [SerializeField, Range(0f, 1f)]
     protected float m_AccelerationMultiplier = 1f;
+    [SerializeField]
+    private int m_Points = 100;
 
     public AsteroidType AsteroidType { get; set; }
 
@@ -39,6 +41,6 @@ public class Asteroid : Entity
 
     protected virtual void OnCollisionWithBullet(Vector3 direction)
     {
-        // Use in child
+        GameManagement.Instance.ScoreManager.AddScore(m_Points);
     }
 }

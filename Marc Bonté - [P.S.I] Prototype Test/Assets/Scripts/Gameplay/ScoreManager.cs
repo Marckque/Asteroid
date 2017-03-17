@@ -8,7 +8,13 @@ public class ScoreManager : MonoBehaviour
 
     public int Score { get; set; }
 
-    public void UpdateScoreUI()
+    public void AddScore(int scoreToAdd)
+    {
+        Score += scoreToAdd;
+        UpdateScoreUI();
+    }
+
+    private void UpdateScoreUI()
     {
         m_ScoreText.text = Score.ToString();
     }
