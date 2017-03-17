@@ -15,4 +15,11 @@ public static class ExtensionMethods
 
         return new Vector3(randomX, randomY, randomZ).normalized;
     }
+
+    public static int ChooseInt(params int[] a_Integers)
+    {
+        int randomValue = Random.Range(-1, a_Integers.Length - 1) + 1;
+        int value = a_Integers[randomValue];
+        return value;
+    }
 }
