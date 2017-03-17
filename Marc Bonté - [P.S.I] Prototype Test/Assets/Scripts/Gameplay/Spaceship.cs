@@ -12,6 +12,7 @@ public class SpaceshipControls
 public class SpaceshipParameters
 {
     public float rotationSpeed = 10f;
+    public float shootOffset = 1f;
 }
 
 public class Spaceship : Entity
@@ -65,7 +66,7 @@ public class Spaceship : Entity
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Bullet bullet = Instantiate(m_Bullet, transform.position + (transform.forward * 3f), Quaternion.identity);
+            Bullet bullet = Instantiate(m_Bullet, transform.position + (transform.forward * m_SpaceshipParameters.shootOffset), Quaternion.identity);
 
             bullet.SetAcceleration(transform.forward * bullet.EntityParameters.accelerationScalar);
             bullet.ApplyForces();

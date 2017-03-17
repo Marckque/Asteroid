@@ -3,13 +3,16 @@
 public enum AsteroidType
 {
     small = 0,
-    big = 1
+    medium = 1,
+    big = 2
 };
 
 public class Asteroid : Entity
 {
     [SerializeField, Range(0f, 1f)]
     protected float m_AccelerationMultiplier = 1f;
+
+    public AsteroidType AsteroidType { get; set; }
 
     protected override void Awake()
     {
